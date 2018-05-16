@@ -32,8 +32,9 @@ class ShowBlogs
 			
 			item = Hash.new
 
-			item[:full_path] = path
+			item[:file_path] = path
 			item[:path] = './' + f.sub(/.html$/,'')
+			item[:full_path] = $url_base + f.sub(/.html$/,'')
 
 			blog_page = File.read(path)
 			html_doc = Nokogiri::HTML(blog_page)
@@ -64,6 +65,8 @@ class ShowBlogs
 						break
 					end
 				}
+			else
+				item[:abstract] = '(null)'
 			end
 
 			@@blog_list << item
@@ -101,6 +104,15 @@ class ShowBlogs
 				server_info = 'Building Time: ' + (end_time - start_time).to_s + 'ms'
 
 				return ['200', {'Content-Type' => 'text/html'}, [list_templet.result(binding)]]
+			elsif req.path == '/rss'
+				# show list
+				self.build_list()
+
+				rss_templet = ERB.new File.open('./scripts/templet/rss.erb').read
+
+				rss_list = @@blog_list
+
+				return ['200', {'Content-Type' => 'application/rss+xml'}, [rss_templet.result(binding)]]
 			end
 
 			path = './data/html' + req.path + '.html'

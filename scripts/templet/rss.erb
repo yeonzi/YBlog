@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title><%= $rss_title %></title>
+  <link><%= $url_base %></link>
+  <description><%= $rss_description %></description>
+  <copyright><%= $copy_right %></copyright>
+  <generator>the YBlog blog system</generator>
+  <% rss_list.each do |item| %>
+    <item>
+      <title><%= item[:title] %></title>
+      <link><%= item[:full_path] %></link>
+      <description><%= item[:abstract] %></description>
+      <pubDate><%= item[:time] %></pubDate>
+    </item>
+  <% end %>
+
+</channel>
+
+</rss>
