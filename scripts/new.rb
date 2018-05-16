@@ -5,10 +5,12 @@ require 'base64'
 require 'erb'
 require './scripts/auth.rb'
 require 'nokogiri'
+require 'open-uri'
 
 class New
 	def self.call(env)
 		req = Rack::Request.new(env)
+		reserve_path = ['new','login','rss','upload','image','static']
 		if req.get?
 			if SimpleAuth.pass?(req)
 				editor = ERB.new File.open('./scripts/templet/editor.erb').read
@@ -45,14 +47,24 @@ class New
 				end
 
 				data['title'].sub!(' ', '_')
+				data['title'].sub!('.', '-')
 
-				markdown_path = './data/markdown/' + data['title'] + '.md'
-				html_path = './data/html/' + data['title'] + '.html'
+				data_uri = URI.encode data['title']
+
+				if reserve_path.include? data_uri
+					return_content = Hash.new
+					return_content['success'] = 0
+					return_content['message'] = '这个地址被保留了呢，换个地址吧'
+					return ['200', {'Content-Type' => 'application/json'}, [return_content.to_json]]
+				end
+
+				markdown_path = './data/markdown/' + data_uri + '.md'
+				html_path = './data/html/' + data_uri + '.html'
 
 				if File::exist?(html_path) || File::exist?(markdown_path)
 					return_content = Hash.new
 					return_content['success'] = 0
-					return_content['message'] = '这个题目的博客已经存在了，换个题目吧'
+					return_content['message'] = '这个地址的博客已经存在了，换个地址吧'
 					return ['200', {'Content-Type' => 'application/json'}, [return_content.to_json]]
 				end
 
@@ -67,7 +79,7 @@ class New
 				return_content = Hash.new
 				return_content['success'] = 1
 				return_content['message'] = 'Create Blog Success'
-				return_content['url'] = './' + data['title']
+				return_content['url'] = './' + data_uri
 
 				FileUtils.touch './data/rebuild.stamp'
 				

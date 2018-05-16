@@ -6,6 +6,7 @@ require 'erb'
 require 'nokogiri'
 require './scripts/auth.rb'
 require './settings.rb'
+require 'open-uri'
 
 class ShowBlogs
 	@@footer_page = File.read('./scripts/templet/footer.html')
@@ -13,6 +14,8 @@ class ShowBlogs
 	@@blog_list = nil
 
 	def self.build_list()
+		# Gen Blog list
+
 		if !File::exist?('./data/rebuild.stamp') && @@blog_list != nil
 			# no need to rebuild list
 			return @@blog_list
@@ -45,7 +48,7 @@ class ShowBlogs
 			if html_doc.css("h1").first != nil
 				item[:title] = html_doc.css("h1").first.content
 			else
-				item[:title] = f.sub(/.html$/,'')
+				item[:title] = URI.decode( f.sub(/.html$/,'') ).encode(:xml => :text)
 			end
 
 			if html_doc.css("img").first != nil
@@ -105,7 +108,7 @@ class ShowBlogs
 
 				return ['200', {'Content-Type' => 'text/html'}, [list_templet.result(binding)]]
 			elsif req.path == '/rss'
-				# show list
+				# show RSS
 				self.build_list()
 
 				rss_templet = ERB.new File.open('./scripts/templet/rss.erb').read
@@ -114,6 +117,8 @@ class ShowBlogs
 
 				return ['200', {'Content-Type' => 'application/rss+xml'}, [rss_templet.result(binding)]]
 			end
+
+			# Start request
 
 			path = './data/html' + req.path + '.html'
 			
@@ -129,7 +134,7 @@ class ShowBlogs
 				if html_doc.css("h1").first != nil
 					title = html_doc.css("h1").first.content
 				else
-					title = req.path.sub('/','')
+					title = URI.decode( req.path.sub('/','') ).force_encoding('UTF-8')
 				end
 
 				if SimpleAuth.pass?(req)
