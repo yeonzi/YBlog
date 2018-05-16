@@ -19,6 +19,8 @@
 <link href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.proxy.ustclug.org/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
+<link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+<script id="-cdnjs-cloudflare-com-ajax-libs-KaTeX-0-3-0-katex-min" type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
 
 <style type="text/css">
 	body {
@@ -106,5 +108,14 @@
 	</div>
 	<script src="./static/js/jquery.min.js"></script>
 	<script src="./static/js/editormd.js"></script>
+	<script type="text/javascript">
+		    
+		    $("body").find(".editormd-tex").each(function(){
+		        var tex  = $(this);
+		        katex.render(tex.text(), tex[0]);
+		        
+		        tex.find(".katex").css("font-size", "1.6em");
+		    });
+	</script>
 </body>
 </html>
