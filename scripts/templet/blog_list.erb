@@ -9,7 +9,7 @@
 <meta name="description" content="My Personal Site">
 <meta name="author" content="liyeonji@gmail.com">
 
-<title><%= title %> - <%= $blog_title %></title>
+<title>List - <%= $blog_title %></title>
 
 <link rel="stylesheet" type="text/css" href="./static/css/blog_default.css">
 <link rel="stylesheet" type="text/css" href="./static/css/markdown.css">
@@ -17,7 +17,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.proxy.ustclug.org/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 <link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
 <script id="-cdnjs-cloudflare-com-ajax-libs-KaTeX-0-3-0-katex-min" type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
@@ -92,43 +91,55 @@
 		</aside>
 
 		<div class="content-box clearfix">
-			<article class="article-page">
-				<div class="page-content">
-					<div class="blog-body markdown-body">
-						<%= blog_page %>
+			
+			<% if blog_list.length == 0 %>
 
-						<br><br><br><br><br>
-						<a id="return-btn" class="btn btn-success" href="./">返回主页</a>
-						<hr>
-						<%= server_info %>
-						
-						<%= footer_page %>
-						</div>
+			暂时没有文章呢
+
+			<% else %>
+
+				<% blog_list.each do |item| %>
+
+					<article class="post">
+						<% if item[:image] != nil %>
+							<a class="post-thumbnail" style="background-image: url(<%= item[:image] %>)" href="<%= item[:path] %>"></a>
+						<% end %>
+
+					<div class="post-content">
+						<h2 class="post-title"><a href="<%= item[:path] %>"> <%= item[:title].to_s %> </a></h2>
+						<p> <%= item[:abstract] %> </p>
+						<span class="post-date"> <%= item[:time].to_s %> </span>
 					</div>
-				</div>
-			</article>
+					</article>
+				
+				<% end %>
+
+			<% end %>
+
+			<br><br>
+			<hr>
+			<%= server_info %>
 		</div>
 	</div>
 	<script src="./static/js/jquery.min.js"></script>
 	<script src="./static/js/editormd.js"></script>
 	<script type="text/javascript">
-		    
-		    $("body").find(".editormd-tex").each(function(){
-		        var tex  = $(this);
-		        katex.render(tex.text(), tex[0]);
-		        
-		        tex.find(".katex").css("font-size", "1.6em");
-		    });
+			$("body").find(".editormd-tex").each(function(){
+				var tex  = $(this);
+				katex.render(tex.text(), tex[0]);
+				
+				tex.find(".katex").css("font-size", "1.6em");
+			});
 
-		    var cnt=0;
+			var cnt=0;
 
-		    function click_handle() {
-		        cnt+=1;
-		        if (cnt>=<%= login_cnt %>) {
-		            cnt=0;
-		            window.location.href="<%= login_href %>";
-		        }
-		    }
+			function click_handle() {
+				cnt+=1;
+				if (cnt>=<%= login_cnt %>) {
+					cnt=0;
+					window.location.href="<%= login_href %>";
+				}
+			}
 	</script>
 </body>
 </html>

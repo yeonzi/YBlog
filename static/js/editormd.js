@@ -85,7 +85,16 @@
             "undo", "redo", "|",
             "watch", "preview", "|",
             "help", "info"
-        ]
+        ],
+
+        yblog : [
+            "undo", "redo", "|", 
+            "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", 
+            "h1", "h2", "h3", "h4", "h5", "h6", "|", 
+            "list-ul", "list-ol", "hr", "|",
+            "link", "reference-link", "image", "table", "datetime", "html-entities", "|",
+            "help", "info"
+        ],
     };
     
     editormd.defaults     = {
@@ -172,7 +181,7 @@
                 
         toolbar              : true,           // show/hide toolbar
         toolbarAutoFixed     : true,           // on window scroll auto fixed position
-        toolbarIcons         : "full",
+        toolbarIcons         : "yblog",
         toolbarTitles        : {},
         toolbarHandlers      : {
             ucwords : function() {

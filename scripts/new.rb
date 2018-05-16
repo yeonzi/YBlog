@@ -4,6 +4,7 @@ require 'json'
 require 'base64'
 require 'erb'
 require './scripts/auth.rb'
+require 'nokogiri'
 
 class New
 	def self.call(env)
@@ -67,6 +68,8 @@ class New
 				return_content['success'] = 1
 				return_content['message'] = 'Create Blog Success'
 				return_content['url'] = './' + data['title']
+
+				FileUtils.touch './data/rebuild.stamp'
 				
 				['201', {'Content-Type' => 'application/json', 'Location' => return_content['url']}, [return_content.to_json]]
 			end
