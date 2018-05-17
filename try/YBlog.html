@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN"
+"http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="My Personal Site">
+<meta name="author" content="liyeonji@gmail.com">
+<title>YBlog - 某懒癌患者的个人小站</title>
+<link rel="stylesheet" type="text/css" href="./static/css/blog_default.css">
+<link rel="stylesheet" type="text/css" href="./static/css/markdown.css">
+<link rel="stylesheet" type="text/css" href="./static/css/loaders.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.proxy.ustclug.org/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+<script id="-cdnjs-cloudflare-com-ajax-libs-KaTeX-0-3-0-katex-min" type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+<style type="text/css">
+	body {
+		width: 100%;
+		height: 100%;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	.blog-body {
+		width: 100%;
+		margin: auto;
+		padding: 50px 40px;
+	}
+
+	.sidebar {
+		background: url(./image/bg.jpg) no-repeat center center;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		background-size: cover;
+		-o-background-size: cover;
+	}
+
+	.article-page {
+		width: 100%;
+	}
+</style>
+<script type="text/javascript">
+	window.addEventListener("load", function() {
+		  var wrapper = document.getElementById("loader");
+		  document.body.removeChild(loader);
+	});
+</script>
+</head>
+<body>
+<div id="loader" style="position:fixed;width:100%;height:100%;z-index:20;padding-top:30vh;background-color:#ADF">
+<center>
+<div data-loader="circle-side"></div>
+</center>
+</div>
+<div class="wrapper">
+<aside class="sidebar">
+<header>
+<div class="about">
+<div class="cover-author-image">
+<img src="./image/avatar.jpg" alt="大话春秋">
+</div>
+<div class="author-name" onclick="click_handle()">大话春秋</div>
+<p>И расскажу тебе, если сумею я, как я люблю тебя, тысячу раз.</p>
+</div>
+</header>
+<footer>
+<section class="contact">
+<h3 class="contact-title">Contact me</h3>
+<ul>
+<li class="github"><a href="https://github.com/yeonzi" target="_blank"><i class="fa fa-github"></i></a></li>
+<li class="linkedin"><a href="" target="_blank"><i class="fa fa-qq" aria-hidden="true"></i></a></li>
+<li class="email"><a href=""><i class="fa fa-envelope-o"></i></a></li>
+<li class="email"><a href=""><i class="fa fa-rss"></i></a></li>
+</ul>
+</section> 
+<div class="copyright">
+<p>2016-2018 © Yeonji</p>
+</div>
+</footer>
+</aside>
+<div class="content-box clearfix">
+<article class="article-page">
+<div class="page-content">
+<div class="blog-body markdown-body">
+<h1 id="h1-yblog"><a name="YBlog" class="reference-link"></a><span class="header-link octicon octicon-link"></span>YBlog</h1><p>这里是YBlog，一个基于Rack的开源轻量化极易搭建的自助博客系统。</p>
+<p>你可以在这里轻松使用Markdown来进行博客写作。</p>
+<p><img src="./image/334EE631D3F6EEB0D1D288EEA6A95F7012680463.png" alt="YBlog preview">
+<h2 id="h2-u4F7Fu7528u8BF4u660E"><a name="使用说明" class="reference-link"></a><span class="header-link octicon octicon-link"></span>使用说明</h2><h3 id="h3-u5FEBu901Fu90E8u7F72"><a name="快速部署" class="reference-link"></a><span class="header-link octicon octicon-link"></span>快速部署</h3><ol>
+<li>请确认ruby版本号 &gt;= 2.1.0</li><li>使用gem安装nokogiri和rack <code>gem install rack</code> <code>gem install nokogiri</code></li><li>下载项目源代码到本地</li><li>在项目目录下运行<code>rackup</code></li><li>开始写blog吧</li></ol>
+<h3 id="h3-login-amp-writing"><a name="Login &amp; Writing" class="reference-link"></a><span class="header-link octicon octicon-link"></span>Login &amp; Writing</h3><p>什么你没找到登录入口？</p>
+<p>猛戳头像下你自己名字试试？（是不是很恶趣味</p>
+<h3 id="h3-u4FBFu6377u5347u7EA7"><a name="便捷升级" class="reference-link"></a><span class="header-link octicon octicon-link"></span>便捷升级</h3><ol>
+<li>下载新版本源代码</li><li>将原始版本的data目录复制到新版本目录下（替换）</li><li><code>rackup</code></li></ol>
+<h3 id="h3-u8F7Bu677Eu5B9Au5236"><a name="轻松定制" class="reference-link"></a><span class="header-link octicon octicon-link"></span>轻松定制</h3><ol>
+<li>编辑<code>settings.rb</code>修改各种文本信息</li><li>编就<code>config.ru</code>修改端口和监听地址</li><li>替换<code>data/image</code>里面的默认背景和头像</li><li>修改<code>data/users/admin.json</code>内的用户名和密码（文件名要和用户名一致哦）</li><li>如果你想要，可以到<code>script/templet</code>目录下修改模版来进行深度定制</li></ol>
+<p>好了这已经是你自己的blog了</p>
+<h2 id="h2-components-libraries"><a name="Components / Libraries" class="reference-link"></a><span class="header-link octicon octicon-link"></span>Components / Libraries</h2><p>样式表: <a href="https://github.com/necolas/normalize.css">normalize.css</a></p>
+<p>编辑器: <a href="https://github.com/pandao/editor.md">editor.md</a></p>
+<p>（我知道编辑页面很丑，我也不知道怎么写好看啊，反正能用就行了吧）</p>
+<p>默认头像: <a href="https://www.pixiv.net/member.php?id=8467971">(ˉ﹃ˉ)EM1234 @ pixiv.net</a></p>
+<p>默认背景: <a href="https://github.com/cojdev/lowpoly">lowpoly</a></p>
+<h2 id="h2-license"><a name="License" class="reference-link"></a><span class="header-link octicon octicon-link"></span>License</h2><p>The Apache License. see LICENSE file</p>
+<br><br><br><br><br>
+<a id="return-btn" class="btn btn-success" href="./">返回主页</a>
+<hr>
+Last Modified: 2018-05-17 20:10:41 +0800, Loading Time: 1ms
+<h4><strong>Short-circuits.org</strong></h4>
+<p>Xidian University<br>266 Xinglong Section of Xifeng Road, Xi’an, Shaanxi710126</p>
+<p>Copyright &copy; Short-circuits.org 2016-2018</p>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+<script src="./static/js/jquery.min.js"></script>
+<script src="./static/js/editormd.js"></script>
+<script type="text/javascript">
+$("body").find(".editormd-tex").each(function(){
+var tex  = $(this);
+katex.render(tex.text(), tex[0]);
+tex.find(".katex").css("font-size", "1.6em");
+});
+var cnt=0;
+function click_handle() {
+cnt+=1;
+if (cnt>=2) {
+    cnt=0;
+    window.location.href="./new.html";
+}}
+</script>
+</body>
+</html>

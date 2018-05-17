@@ -45,7 +45,7 @@
         
         $(function() {
             
-            $.get( '<%= markdown_templet %>' , function(md){
+            $.get( './default.md' , function(md){
                 testEditor = editormd("test-editormd", {
                     height: 740,
                     markdown : md,
@@ -69,32 +69,7 @@
             });
 
             $("#upload-btn").bind("click", function(){
-                markdown = testEditor.getMarkdown()
-                // markdown_base64 = window.btoa(markdown)
-
-                html_data = testEditor.getHTML()
-                // html_data_base64 = window.btoa(html_data)
-
-                xmlhttp = new XMLHttpRequest();
-                var url = "./new";
-                xmlhttp.open("POST", url, true);
-                xmlhttp.setRequestHeader("Content-type", "application/json")
-                xmlhttp.onreadystatechange = function () { //Call a function when the state changes.
-
-                    json = JSON.parse(xmlhttp.responseText)
-                    if (xmlhttp.readyState == 4 && xmlhttp.status == 201) {
-                        window.location.replace(json.url)
-                    } else {
-                        alert(json.message);
-                    }
-                }
-                var parameters = {
-                    "title": document.getElementsByName("submit-title")[0].value,
-                    "content-md": markdown,
-                    "content-html": html_data,
-                };
-
-                xmlhttp.send(JSON.stringify(parameters));
+                alert('在线体验版本不支持提交哦')
             });
         });
     </script>
