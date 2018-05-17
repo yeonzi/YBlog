@@ -1,2 +1,3 @@
 static/* linguist-detectable=false
 data/* linguist-detectable=false
+*.erb linguist-language=Ruby
