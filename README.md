@@ -2,7 +2,7 @@
 
 这里是YBlog，一个基于Rack的开源轻量化极易搭建的自助博客系统。
 
-你可以在这里轻松使用Markdown来进行博客写作。
+你可以在这里轻松使用Markdown来进行博客写作。[在线体验](https://www.short-circuits.org/YBlog/try/)
 
 ![YBlog preview](./data/image/334EE631D3F6EEB0D1D288EEA6A95F7012680463.png)
 
