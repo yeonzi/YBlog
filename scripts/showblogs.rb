@@ -27,10 +27,11 @@ class ShowBlogs
 
 		puts 'Building List'
 
-		@@blog_list = Array.new
+		new_blog_list = Array.new
 
 		Dir.foreach('./data/html') { |f|
 			next if f == '.' || f == '..'
+			next if f[0] == '.'
 			path = './data/html/' + f
 			
 			item = Hash.new
@@ -64,19 +65,22 @@ class ShowBlogs
 					item[:abstract] = item[:abstract] + tag.content + ' '
 
 					if item[:abstract].length >= 100
-						item[:abstract] = item[:abstract] + ' ...'
 						break
 					end
 				}
+
+				item[:abstract] = item[:abstract][0,100] + ' ...'
 			else
 				item[:abstract] = '(null)'
 			end
 
-			@@blog_list << item
+			new_blog_list << item
 		}
 
-		@@blog_list.sort_by! { |item| item[:modified] }
-		@@blog_list.reverse!
+		new_blog_list.sort_by! { |item| item[:modified] }
+		new_blog_list.reverse!
+
+		@@blog_list = new_blog_list
 
 		return @@blog_list
 	end

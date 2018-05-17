@@ -29,7 +29,7 @@ map '/image' do
 	use Rack::Sendfile
 	use Rack::ConditionalGet
 	use Rack::ETag
-	run Rack::File.new "./image"
+	run Rack::File.new "./data/image"
 end
 
 map '/static' do

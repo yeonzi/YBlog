@@ -17,7 +17,7 @@ class Upload
 				upload_sha1 = Digest::SHA1.hexdigest(upload_file).upcase
 				upload_ext  = req.POST['editormd-image-file'][:filename][/\.[^\.]+$/]
 	
-				saved_file_name = './image/' + upload_sha1 + upload_ext
+				saved_file_name = './data/image/' + upload_sha1 + upload_ext
 	
 				saved_file = File.new(saved_file_name, "wb")
 				saved_file.write(upload_file)
@@ -27,7 +27,7 @@ class Upload
 				return_content = Hash.new
 				return_content['success'] = 1
 				return_content['message'] = 'Upload Success'
-				return_content['url'] = saved_file_name
+				return_content['url'] = './image/' + upload_sha1 + upload_ext
 				return ['200', {'Content-Type' => 'application/json'}, [return_content.to_json]]
 			end
 		else
