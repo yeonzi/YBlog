@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # new.rb - v1
 
 require 'json'

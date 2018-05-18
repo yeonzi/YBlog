@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # login.rb - v1
 
 require 'erb'

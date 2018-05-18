@@ -1,4 +1,5 @@
-# new.rb - v1
+# -*- encoding: utf-8 -*-
+# upload.rb - v1
 
 require 'digest/sha1'
 require 'json'

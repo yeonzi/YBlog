@@ -1,4 +1,5 @@
-# new.rb - v1
+# -*- encoding: utf-8 -*-
+# showblogs.rb - v1
 
 # require 'json'
 # require 'base64'
@@ -9,8 +10,10 @@ require './settings.rb'
 require 'open-uri'
 
 class ShowBlogs
-	@@footer_page = File.read('./scripts/templet/footer.html')
-	@@blog_templet = ERB.new File.open('./scripts/templet/blog_page.erb').read
+	@@footer_page = File.read('./scripts/templet/footer.html').force_encoding('UTF-8')
+	@@blog_templet = ERB.new File.open('./scripts/templet/blog_page.erb').read.force_encoding('UTF-8')
+	@@list_templet = ERB.new File.open('./scripts/templet/blog_list.erb').read.force_encoding('UTF-8')
+	@@rss_templet = ERB.new File.open('./scripts/templet/rss.erb').read.force_encoding('UTF-8')
 	@@blog_list = nil
 
 	def self.build_list()
@@ -40,14 +43,14 @@ class ShowBlogs
 			item[:path] = './' + f.sub(/.html$/,'')
 			item[:full_path] = $url_base + f.sub(/.html$/,'')
 
-			blog_page = File.read(path)
+			blog_page = File.read(path).force_encoding('UTF-8')
 			html_doc = Nokogiri::HTML(blog_page)
 
 			item[:time] = File.mtime(path).getlocal($timezone)
 			item[:modified] = item[:time].to_i
 
 			if html_doc.css("h1").first != nil
-				item[:title] = html_doc.css("h1").first.content
+				item[:title] = html_doc.css("h1").first.content.force_encoding('UTF-8')
 			else
 				item[:title] = URI.decode( f.sub(/.html$/,'') ).encode(:xml => :text)
 			end
@@ -93,8 +96,6 @@ class ShowBlogs
 				# show list
 				self.build_list()
 
-				list_templet = ERB.new File.open('./scripts/templet/blog_list.erb').read
-
 				blog_list = @@blog_list[0,10]
 				footer_page  = @@footer_page
 				login_btn = nil
@@ -110,16 +111,14 @@ class ShowBlogs
 				end_time = (Time.now.to_f * 1000).to_i
 				server_info = 'Building Time: ' + (end_time - start_time).to_s + 'ms'
 
-				return ['200', {'Content-Type' => 'text/html'}, [list_templet.result(binding)]]
+				return ['200', {'Content-Type' => 'text/html'}, [@@list_templet.result(binding)]]
 			elsif req.path == '/rss'
 				# show RSS
 				self.build_list()
 
-				rss_templet = ERB.new File.open('./scripts/templet/rss.erb').read
-
 				rss_list = @@blog_list
 
-				return ['200', {'Content-Type' => 'application/rss+xml'}, [rss_templet.result(binding)]]
+				return ['200', {'Content-Type' => 'application/rss+xml'}, [@@rss_templet.result(binding)]]
 			end
 
 			# Start request
@@ -131,7 +130,7 @@ class ShowBlogs
 				footer_page  = @@footer_page
 				blog_templet = @@blog_templet
 
-				blog_page = File.read(path)
+				blog_page = File.read(path).force_encoding('UTF-8')
 				changed_time = File.mtime(path).getlocal($timezone)
 				html_doc = Nokogiri::HTML(blog_page)
 				

@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # auth.rb - v1
 
 require 'json'
