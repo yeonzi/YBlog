@@ -80,10 +80,22 @@
 				<section class="contact">
 					<h3 class="contact-title">Contact me</h3>
 					<ul>
-						<li class="github"><a href="https://github.com/yeonzi" target="_blank"><i class="fa fa-github"></i></a></li>
-						<li class="linkedin"><a href="http://sighttp.qq.com/authd?IDKEY=4b062ba3876b7a1ebad53f2044f6ac960c29df48406d4150" target="_blank"><i class="fa fa-qq" aria-hidden="true"></i></a></li>
-						<li class="email"><a href="mailto:liyeonji@gmail.com"><i class="fa fa-envelope-o"></i></a></li>
-						<li class="email"><a href="./rss"><i class="fa fa-rss"></i></a></li>
+						<% if $link_email != nil %>
+							<li class="email"><a href="mailto:<%= $link_email %>" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
+						<% end %>
+						<% if $link_facebook != nil %>
+							<li class="facebook"><a href="<%= $link_facebook %>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+						<% end %>
+						<% if $link_github != nil %>
+							<li class="github"><a href="<%= $link_github %>" target="_blank"><i class="fa fa-github"></i></a></li>
+						<% end %>
+						<% if $link_qq != nil %>
+							<li class="qq"><a href="<%= $link_qq %>" target="_blank"><i class="fa fa-qq"></i></a></li>
+						<% end %>
+						<% if $link_twitter != nil %>
+							<li class="twitter"><a href="<%= $link_twitter %>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+						<% end %>
+						<li class="rss"><a href="./rss"><i class="fa fa-rss"></i></a></li>
 					</ul>
 				</section> <!-- End Section Contact -->
 				<div class="copyright">
