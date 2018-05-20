@@ -49,7 +49,16 @@
 
 默认背景: [lowpoly](https://github.com/cojdev/lowpoly)
 
+## 更新日志
 
+### 2018-05-20
+
+1. 应某人要求取消了标题栏中List字样
+
+### 2018-05-18
+
+1. 解决了某些没有设置环境变量的系统下的异常
+2. 允许通过settings.rb修改联系方式
 
 ## License
 
