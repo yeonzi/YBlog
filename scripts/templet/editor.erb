@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Blog - 编辑器 - 某懒癌患者的个人小站</title>
+    <title>编辑器 - <%= $blog_title %></title>
     <link rel="stylesheet" href="./static/css/style.css" />
     <link rel="stylesheet" href="./static/css/editormd.css" />
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -30,7 +30,7 @@
             <h2>Settings</h2>
             <br>
             <div class="title">
-                <input type="text" class="form-control" name="submit-title" placeholder="请输入标题">
+                <input type="text" class="form-control" name="submit-title" placeholder="<%= input_tips %>">
             </div>
             <br>
             <div>
@@ -76,7 +76,7 @@
                 // html_data_base64 = window.btoa(html_data)
 
                 xmlhttp = new XMLHttpRequest();
-                var url = "./new";
+                var url = window.location.href;
                 xmlhttp.open("POST", url, true);
                 xmlhttp.setRequestHeader("Content-type", "application/json")
                 xmlhttp.onreadystatechange = function () { //Call a function when the state changes.

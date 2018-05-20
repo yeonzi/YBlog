@@ -113,6 +113,10 @@
 
 						<br><br><br><br><br>
 						<a id="return-btn" class="btn btn-success" href="./">返回主页</a>
+						<% if show_edit == true %>
+							<a id="return-btn" class="btn btn-info" href="./edit<%= req.path %>">编辑本页</a>
+							<a id="return-btn" class="btn btn-danger" onclick="delete_handle()">删除本页</a>
+						<% end %>
 						<hr>
 						<%= server_info %>
 						
@@ -126,23 +130,31 @@
 	<script src="./static/js/jquery.min.js"></script>
 	<script src="./static/js/editormd.js"></script>
 	<script type="text/javascript">
-		    
-		    $("body").find(".editormd-tex").each(function(){
-		        var tex  = $(this);
-		        katex.render(tex.text(), tex[0]);
-		        
-		        tex.find(".katex").css("font-size", "1.6em");
-		    });
+			
+			$("body").find(".editormd-tex").each(function(){
+				var tex  = $(this);
+				katex.render(tex.text(), tex[0]);
+				
+				tex.find(".katex").css("font-size", "1.6em");
+			});
 
-		    var cnt=0;
+			var cnt=0;
 
-		    function click_handle() {
-		        cnt+=1;
-		        if (cnt>=<%= login_cnt %>) {
-		            cnt=0;
-		            window.location.href="<%= login_href %>";
-		        }
-		    }
+			function click_handle() {
+				cnt+=1;
+				if (cnt>=<%= login_cnt %>) {
+					cnt=0;
+					window.location.href="<%= login_href %>";
+				}
+			}
+
+			function delete_handle() {
+				if (confirm("真的要删除这篇文章吗？\n'<%= title %>'将会永久失去！（真的很久！）")) {
+					if (confirm("最后再确认一次\n您将要删除文章'<%= title %>'")) {
+						window.location.href="./delete<%= req.path %>"
+					}
+				}
+			}
 	</script>
 </body>
 </html>

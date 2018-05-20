@@ -1,6 +1,7 @@
+# -*- encoding: utf-8 -*-
 # blog settings
 
-$url_base = 'https://www.short-circuits.org/blog/'
+$url_base = 'http://localhost:8081/'
 
 $blog_title = '某懒癌患者的个人小站'
 $blogger_name = '大话春秋'
@@ -22,3 +23,4 @@ $link_facebook = nil
 $link_github = 'https://github.com/yeonzi'
 $link_qq = nil
 $link_twitter = nil
+

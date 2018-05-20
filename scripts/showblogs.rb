@@ -26,9 +26,11 @@ class ShowBlogs
 
 		if File::exist?('./data/rebuild.stamp')
 			File::delete('./data/rebuild.stamp')
+			puts 'Rebuilding List.'
+		else
+			puts 'Building List.'
 		end
 
-		puts 'Building List'
 
 		new_blog_list = Array.new
 
@@ -131,7 +133,7 @@ class ShowBlogs
 				blog_templet = @@blog_templet
 
 				blog_page = File.read(path).force_encoding('UTF-8')
-				changed_time = File.mtime(path).getlocal($timezone)
+				changed_time = File.mtime(path).getlocal($timezone).strftime("%Y-%m-%d %a %H:%M:%S")
 				html_doc = Nokogiri::HTML(blog_page)
 				
 				if html_doc.css("h1").first != nil
@@ -143,10 +145,13 @@ class ShowBlogs
 				if SimpleAuth.pass?(req)
 					login_href = './new'
 					login_cnt = '2'
+					show_edit = true
 				else
 					login_href = './login'
 					login_cnt = '10'
+					show_edit = false
 				end
+
 				
 				end_time = (Time.now.to_f * 1000).to_i
 

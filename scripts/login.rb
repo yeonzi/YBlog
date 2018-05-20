@@ -9,7 +9,7 @@ class Login
 
 	def self.call(env)
 		req = Rack::Request.new(env)
-		login_page = ERB.new File.open('./scripts/templet/login.erb').read
+		login_page = ERB.new File.open('./scripts/templet/login.erb').read.force_encoding('UTF-8')
 		if req.get?
 			login_status = ''
 			['200', {'Content-Type' => 'text/html'}, [login_page.result(binding)]]

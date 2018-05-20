@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# new.rb - v1
+# edit.rb - v1
 
 require 'json'
 require 'base64'
@@ -7,16 +7,15 @@ require 'erb'
 require './scripts/auth.rb'
 require 'open-uri'
 
-class New
+class Edit
 	def self.call(env)
 		@@editor = ERB.new File.open('./scripts/templet/editor.erb').read.force_encoding('UTF-8')
 		req = Rack::Request.new(env)
 		reserve_path = ['new','login','rss','upload','image','static','markdown_archives','edit']
 		if req.get?
 			if SimpleAuth.pass?(req)
-
-				markdown_templet = './static/default.md'
-				input_tips = '请输入一个标题（此标题将作为访问地址的一部分，中文地址将被自动编码）'
+				markdown_templet = '../markdown_archives/' + req.path.sub('/edit/', '') + '.md'
+				input_tips = '请输入新的标题，留空以使用原始标题（此标题将作为访问地址的一部分，中文地址将被自动编码）'
 
 				['200', {'Content-Type' => 'text/html'}, [@@editor.result(binding)]]
 			else
@@ -24,17 +23,16 @@ class New
 				['200', {'Content-Type' => 'text/html'}, [File.read('./scripts/templet/login_requested.html')]]
 			end
 		elsif req.post?
-			if !SimpleAuth.pass?(req)
-				return_content = Hash.new
-				return_content['success'] = 0
-				return_content['message'] = 'Login requested'
-				return ['200', {'Content-Type' => 'application/json'}, [return_content.to_json]]
-			else
+		 	if !SimpleAuth.pass?(req)
+		 		return_content = Hash.new
+		 		return_content['success'] = 0
+		 		return_content['message'] = 'Login requested'
+		 		return ['200', {'Content-Type' => 'application/json'}, [return_content.to_json]]
+		 	else
 				begin
 					json = req.body.read
 					data = JSON.parse(json)
 
-					raise if !data.has_key?('title')
 					raise if !data.has_key?('content-md')
 					raise if !data.has_key?('content-html')
 				rescue
@@ -44,10 +42,33 @@ class New
 					return ['200', {'Content-Type' => 'application/json'}, [return_content.to_json]]
 				end
 
-				data['title'].sub!(' ', '_')
-				data['title'].sub!('.', '-')
+				# delete origin blog first
 
-				data_uri = URI.encode data['title']
+				ori_name = req.path.sub('/edit/', '')
+
+				ori_html_path = './data/html/' + ori_name + '.html'
+				ori_markdown_path = './data/markdown/' + ori_name + '.md'
+
+				if File::exist?(ori_html_path)
+					File::delete(ori_html_path)
+				end
+
+				if File::exist?(ori_markdown_path)
+					File::delete(ori_markdown_path)
+				end
+
+				# the same as new do
+
+				data_uri = nil
+
+				if data['title'] == nil || data['title'] == ''
+					data_uri = ori_name
+				else
+					data['title'].sub!(' ', '_')
+					data['title'].sub!('.', '-')
+
+					data_uri = URI.encode data['title']
+				end
 
 				if reserve_path.include? data_uri
 					return_content = Hash.new
@@ -76,8 +97,8 @@ class New
 
 				return_content = Hash.new
 				return_content['success'] = 1
-				return_content['message'] = 'Create Blog Success'
-				return_content['url'] = './' + data_uri
+				return_content['message'] = 'Edit Blog Success'
+				return_content['url'] = '../' + data_uri
 
 				FileUtils.touch './data/rebuild.stamp'
 				

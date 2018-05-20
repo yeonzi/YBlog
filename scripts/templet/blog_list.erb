@@ -121,7 +121,7 @@
 					<div class="post-content">
 						<h2 class="post-title"><a href="<%= item[:path] %>"> <%= item[:title].to_s %> </a></h2>
 						<p> <%= item[:abstract] %> </p>
-						<span class="post-date"> <%= item[:time].to_s %> </span>
+						<span class="post-date"> <%= item[:time].strftime("%Y-%m-%d %a %H:%M:%S") %> </span>
 					</div>
 					</article>
 				
