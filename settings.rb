@@ -9,6 +9,9 @@ $blogger_intro = 'И расскажу тебе, если сумею я, как �
 
 $copy_right = '2016-2018 © Yeonji'
 
+# How much items will show in one page
+$item_pre_page = 4
+
 # The zone show in articles
 $timezone = '+08:00'
 

@@ -131,6 +131,17 @@
 
 			<div class="container">
 				<nav class="pagination" role="pagination">
+					<ul><p><span class="page-number">
+						<% if page > 1 %>
+							<a class="btn btn-info" href="./"><button><i class="fa fa-angle-double-left"></i></button></a>
+							<a class="btn btn-info" href="./?page=<%= page - 1 %>"><button><i class="fa fa-angle-left"></i></button></a>
+						<% end %>
+						Page <%= page %> of <%= page_total %>
+						<% if page < page_total %>
+							<a class="btn btn-info" href="./?page=<%= page + 1 %>"><button><i class="fa fa-angle-right"></i></button></a>
+							<a class="btn btn-info" href="./?page=<%= page_total %>"><button><i class="fa fa-angle-double-right"></i></button></a>
+						<% end %>
+					</span></p></ul>
 					<ul>
 						<p><span class="page-number"><%= server_info %></span></p>
 					</ul>

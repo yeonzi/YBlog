@@ -98,7 +98,21 @@ class ShowBlogs
 				# show list
 				self.build_list()
 
-				blog_list = @@blog_list[0,10]
+				query_string = Rack::Utils.parse_nested_query(req.query_string)
+
+				page = 1
+				page_total = (@@blog_list.length - 1) / $item_pre_page + 1
+				
+				if query_string.has_key?('page')
+					page = query_string['page'].to_i
+				end
+
+				page = 1 if page <= 0
+				page = page_total if page > page_total
+
+				start_id = $item_pre_page * (page - 1)
+
+				blog_list = @@blog_list[start_id, $item_pre_page]
 				footer_page  = @@footer_page
 				login_btn = nil
 
