@@ -33,6 +33,12 @@ map '/upload' do
 	run Upload
 end
 
+map '/edit/upload' do
+	use Rack::Head
+	Rack::TempfileReaper
+	run Upload
+end
+
 map '/login' do
 	use Rack::Head
 	run Login
