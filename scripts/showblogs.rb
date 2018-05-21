@@ -107,8 +107,8 @@ class ShowBlogs
 					page = query_string['page'].to_i
 				end
 
-				page = 1 if page <= 0
 				page = page_total if page > page_total
+				page = 1 if page <= 0
 
 				start_id = $item_pre_page * (page - 1)
 
